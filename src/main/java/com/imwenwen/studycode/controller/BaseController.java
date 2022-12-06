@@ -34,7 +34,7 @@ public class BaseController {
     }
 
     public List<Menu> iterateMenus(List<Menu> menuVoList, String pid){
-        List<Menu> result = new ArrayList<Menu>();
+        List<Menu> result = new ArrayList<>();
         for (Menu menu : menuVoList) {
             //获取菜单的id
             String menuid = menu.getId();
