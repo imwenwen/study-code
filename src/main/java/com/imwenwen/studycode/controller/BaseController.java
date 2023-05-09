@@ -20,6 +20,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -157,6 +161,16 @@ public class BaseController {
 
         MyParam param = testMapstruct.toparam(myDTO);
         System.out.println(param.toString());
+
+        return "成功！";
+    }
+
+    @GetMapping(value = "/testSession")
+    public String testSession(HttpServletRequest request, HttpServletResponse response){
+
+        Cookie cookie = new Cookie("userId","imwenwen");
+        response.addCookie(cookie);
+        request.getSession().setAttribute("userId","imwenwen");
 
         return "成功！";
     }
