@@ -1,0 +1,8 @@
+binlog:
+  columns: # 订阅binlog数据库连接信息，ip，端口，用户密码（用户必须要有权限）
+    host: 106.15.170.237
+    port: 13306
+    username: root
+    passwd: Cww2021..
+  db: imwenwen # 监听数据库
+  table: test
