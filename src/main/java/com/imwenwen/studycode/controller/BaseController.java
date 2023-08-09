@@ -13,6 +13,7 @@ import com.imwenwen.studycode.mapstruct.TestMapstruct;
 import com.imwenwen.studycode.request.dto.MyDTO;
 import com.imwenwen.studycode.request.param.MyParam;
 import com.imwenwen.studycode.service.DisruptorMqService;
+import com.sxc.ShortLinkGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,9 @@ public class BaseController {
 
     @Autowired
     private TestMapstruct testMapstruct;
+
+    @Autowired
+    ShortLinkGenerator shortLinkGenerator;
 
     final String ORDER_KEY = "order:";
     @RequestMapping(value ="/getMenuTree",method = RequestMethod.GET)
@@ -173,6 +177,31 @@ public class BaseController {
         request.getSession().setAttribute("userId","imwenwen");
 
         return "成功！";
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping("/genUrl")
+    public String generate(@RequestParam("url") String url) {
+        System.out.println("longLink="+url);
+      return shortLinkGenerator.generateShortLink(url);
+    }
+
+//    业务系统 给 //http://localhost:8080/base/genUrl?url=
+//    翻译成 //  bmgeoo
+    // 客户短配置锻炼服务前缀 prefix：http://localhost:8080/base/find?key=
+    // 设计统一降级页面，传入降级页面地址来跳
+    //prefix + ?key=bmgeoo
+    //redirect https://juejin.cn/post/7210967900421111866?searchId=20230809101217424213A73C24271E9797"
+    //http://localhost:8080/base/find?shortUrl=jmqiii
+    @ResponseBody
+    @RequestMapping("/find")
+    public String find(@RequestParam("shortUrl") String shortUrl,HttpServletResponse response) {
+           System.out.println("shortUrl"+shortUrl);
+            String longLink = shortLinkGenerator.getLongLink(shortUrl);
+            System.out.println("longLink="+longLink);
+            return longLink;
     }
 
 }

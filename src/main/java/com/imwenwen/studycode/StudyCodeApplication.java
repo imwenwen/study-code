@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@MapperScan("com.imwenwen.studycode.dto")
+@MapperScan("com.imwenwen.studycode")
 @EnableConfigurationProperties
 @ConfigurationPropertiesScan
 public class StudyCodeApplication {
